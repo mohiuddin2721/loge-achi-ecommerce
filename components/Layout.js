@@ -153,9 +153,12 @@ export default function Layout({ children }) {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <Container className={classes.main}>
+            {/* <Container className={classes.main}>
                 {children}
-            </Container>
+            </Container> */}
+            <section class="text-gray-600 body-font">
+                {children}
+            </section>
             <footer className={classes.footer}>
                 <Typography>All rights reserved. Loge Achi</Typography>
             </footer>
