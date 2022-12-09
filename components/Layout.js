@@ -2,13 +2,19 @@ import React from 'react';
 import Head from 'next/head';
 import { Container } from '@mui/system';
 import { AppBar, Avatar, Box, Button, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from '@mui/material';
-// import AdbIcon from '@mui/icons-material/Adb';
-// import MenuIcon from '@mui/icons-material/Menu';
 import useStyles from '../utils/styles';
+import Link from 'next/link';
 
-
-const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+const pages = [
+    { name: "Cart", href: "/cart", id: 1 },
+    { name: "Pricing", href: "/pricing", id: 2 },
+    { name: "Blog", href: "/blog", id: 3 },
+];
+const settings = [
+    { name: "Profile", href: "/profile", id: 1 },
+    { name: "Account", href: "/account", id: 2 },
+    { name: "Dashboard", href: "/dashboard", id: 3 }
+];
 
 export default function Layout({ children }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -46,13 +52,14 @@ export default function Layout({ children }) {
                                 display: { xs: 'none', md: 'flex' },
                                 fontFamily: 'monospace',
                                 fontWeight: 700,
-                                letterSpacing: '.3rem',
+                                letterSpacing: '.1rem',
                                 color: 'inherit',
                                 textDecoration: 'none',
                             }}
                         >
                             Loge Achi
                         </Typography>
+
 
                         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
                             <IconButton
@@ -83,11 +90,16 @@ export default function Layout({ children }) {
                                     display: { xs: 'block', md: 'none' },
                                 }}
                             >
-                                {pages?.map((page) => (
-                                    <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                        <Typography textAlign="center">{page}</Typography>
-                                    </MenuItem>
-                                ))}
+                                {pages?.map(page => {
+                                    (<MenuItem key={page?.id} onClick={handleCloseNavMenu}>
+                                        <Typography
+                                            textAlign="center"
+                                            href={page?.href}
+                                        >
+                                            {page?.name}
+                                        </Typography>
+                                    </MenuItem>)
+                                })}
                             </Menu>
                         </Box>
                         {/* <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} /> */}
@@ -110,13 +122,14 @@ export default function Layout({ children }) {
                             Loge Achi
                         </Typography>
                         <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                            {pages.map((page) => (
+                            {pages?.map((page) => (
                                 <Button
-                                    key={page}
+                                    key={page.id}
+                                    href={page.href}
                                     onClick={handleCloseNavMenu}
                                     sx={{ my: 2, color: 'white', display: 'block' }}
                                 >
-                                    {page}
+                                    {page?.name}
                                 </Button>
                             ))}
                         </Box>
@@ -143,24 +156,22 @@ export default function Layout({ children }) {
                                 open={Boolean(anchorElUser)}
                                 onClose={handleCloseUserMenu}
                             >
-                                {settings.map((setting) => (
-                                    <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                                        <Typography textAlign="center">{setting}</Typography>
+                                {settings?.map((setting) => (
+                                    <MenuItem key={setting?.id} onClick={handleCloseUserMenu}>
+                                        <Link href={`${setting?.href}`}>{setting?.name}</Link>
                                     </MenuItem>
                                 ))}
+                                <Button>Log out</Button>
                             </Menu>
                         </Box>
                     </Toolbar>
                 </Container>
             </AppBar>
-            {/* <Container className={classes.main}>
+            <Container className={classes.main}>
                 {children}
-            </Container> */}
-            <section class="text-gray-600 body-font">
-                {children}
-            </section>
-            <footer className={classes.footer}>
-                <Typography>All rights reserved. Loge Achi</Typography>
+            </Container>
+            <footer className='text-center my-4'>
+                <p className=''>All rights reserved. Loge Achi</p>
             </footer>
         </div>
     );
