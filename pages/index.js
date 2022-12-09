@@ -44,14 +44,12 @@ export default function Home() {
           data?.products?.map((product) =>
             <div key={product.id} className="flex justify-center">
               <div className="rounded-lg shadow-lg bg-white max-w-sm">
-                <a href={`/product/${product?.slug}`} data-mdb-ripple="true" data-mdb-ripple-color="light">
+                <a href={`/product/${product?.slug}`}>
                   <img className="rounded-t-lg" src={product.image} alt="" />
                 </a>
                 <div className="p-6">
                   <h5 className="text-green-900 text-xl font-medium mb-2">{product.name}</h5>
-                  <p className="text-gray-700 text-base mb-4">
-                    {product.description}
-                  </p>
+                  
                   <div className=''>
                   <p className="text-gray-700 mb-4 inline-block">
                     $$ <span className='font-semibold text-xl'>{product.price}</span>

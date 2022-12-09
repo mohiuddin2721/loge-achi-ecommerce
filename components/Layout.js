@@ -16,7 +16,7 @@ const settings = [
     { name: "Dashboard", href: "/dashboard", id: 3 }
 ];
 
-export default function Layout({ children }) {
+export default function Layout({ title, children }) {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
     const classes = useStyles();
@@ -36,7 +36,7 @@ export default function Layout({ children }) {
     return (
         <div>
             <Head>
-                <title>Loge Achi</title>
+                <title>{title? `${title} - Loge Achi`: 'Loge Achi'}</title>
             </Head>
             <AppBar position='static' className={classes.navbar}>
                 <Container maxWidth="xl">
