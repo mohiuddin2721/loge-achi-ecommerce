@@ -8,6 +8,7 @@ import {
   Grid,
   Typography
 } from '@mui/material'
+import Link from 'next/link';
 import Layout from '../components/Layout';
 import data from '../utils/data';
 
@@ -16,44 +17,20 @@ export default function Home() {
   return (
     <Layout>
       <div className="grid grid-cols-3 gap-4 my-4">
-        {/* <Grid container spacing={3}>
-          {data?.products?.map((product) => {
-            <Grid item md={4} key={product.name}>
-              <Card>
-                <CardActionArea>
-                  <CardMedia
-                    component='img'
-                    image={product.image}
-                    title={product.name}
-                  ></CardMedia>
-                  <CardContent>
-                    <Typography>{product.name}</Typography>
-                  </CardContent>
-                </CardActionArea>
-                <CardActions>
-                  <Typography>$ {product.price}</Typography>
-                  <Button size='small' color='primary'>
-                    Add to cart
-                  </Button>
-                </CardActions>
-              </Card>
-            </Grid>
-          })}
-        </Grid> */}
         {
           data?.products?.map((product) =>
             <div key={product.id} className="flex justify-center">
               <div className="rounded-lg shadow-lg bg-white max-w-sm">
-                <a href={`/product/${product?.slug}`}>
+                <Link href={`/product/${product?.slug}`}>
                   <img className="rounded-t-lg" src={product.image} alt="" />
-                </a>
+                </Link>
                 <div className="p-6">
                   <h5 className="text-green-900 text-xl font-medium mb-2">{product.name}</h5>
-                  
+
                   <div className=''>
-                  <p className="text-gray-700 mb-4 inline-block">
-                    $$ <span className='font-semibold text-xl'>{product.price}</span>
-                  </p>
+                    <p className="text-gray-700 mb-4 inline-block">
+                      $$ <span className='font-semibold text-xl'>{product.price}</span>
+                    </p>
                     <button
                       type="button"
                       data-mdb-ripple="true"
