@@ -19,7 +19,7 @@ export default function productScreen() {
     return (
         <Layout title={product.name} description={product.description}>
             <div className={classes.section}>
-                <Link href='/' className='text-xl font-semibold' color="primary">
+                <Link href='/' passHref  className='text-xl font-semibold underline' color="primary">
                     Back to products
                 </Link>
             </div>
@@ -36,7 +36,7 @@ export default function productScreen() {
                 <Grid item md={3} xs={12}>
                     <List>
                         <ListItem>
-                            <Typography component="h1">{product.name}</Typography>
+                            <Typography component="h1" variant='h1'>{product.name}</Typography>
                         </ListItem>
                         <ListItem>
                             <Typography>Category: {product.category}</Typography>
