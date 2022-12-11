@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Head from 'next/head';
 import { Container } from '@mui/system';
-import { AppBar, Avatar, Box, Button, createMuiTheme, CssBaseline, IconButton, Menu, MenuItem, ThemeProvider, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Avatar, Box, Button, createTheme, CssBaseline, IconButton, Menu, MenuItem, ThemeProvider, Toolbar, Tooltip, Typography } from '@mui/material';
 import useStyles from '../utils/styles';
 import Link from 'next/link';
+import { Store } from '../utils/Store';
 
 const pages = [
     { name: "Cart", href: "/cart", id: 1 },
@@ -17,7 +18,10 @@ const settings = [
 ];
 
 export default function Layout({ title, children, description }) {
-    const theme = createMuiTheme({
+    const { state, dispatch } = useContext(Store);
+    const { darkMode } = state;
+
+    const theme = createTheme({
         typography: {
             h1: {
                 fontSize: '1.6rem',
@@ -31,13 +35,13 @@ export default function Layout({ title, children, description }) {
             },
         },
         palette: {
-            type: 'light',
+            type: darkMode ? 'dark' : 'light',
             primary: {
-              main: '#203040',
-            //   main: '#f0c000',
+                main: '#203040',
+                //   main: '#f0c000',
             },
             secondary: {
-              main: '#208080',
+                main: '#208080',
             },
         }
     })

@@ -1,13 +1,3 @@
-import {
-  Button,
-  Card,
-  CardActionArea,
-  CardActions,
-  CardContent,
-  CardMedia,
-  Grid,
-  Typography
-} from '@mui/material'
 import Link from 'next/link';
 import Layout from '../components/Layout';
 import data from '../utils/data';
@@ -33,9 +23,6 @@ export default function Home() {
                     </p>
                     <button
                       type="button"
-                      data-mdb-ripple="true"
-                      data-mdb-ripple-color="light"
-                      data-mdb-ripple-duration="1000ms"
                       className="px-2 ml-2 py-1 bg-blue-600 
                   text-white font-medium text-xs leading-tight uppercase 
                   rounded shadow-md hover:bg-blue-700 hover:shadow-lg 
