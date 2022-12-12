@@ -4,22 +4,22 @@ import Link from 'next/link';
 import { useRouter } from 'next/router'
 import React from 'react';
 import Layout from '../../components/Layout';
+import Product from '../../models/Product';
 import data from '../../utils/data';
+import db from '../../utils/db';
 import useStyles from '../../utils/styles';
 
-export default function productScreen() {
-    const router = useRouter();
-    const classes = useStyles();
-    const { slug } = router.query;
+export default function productScreen(props) {
+    const {product} = props;
 
-    const product = data?.products?.find((a) => a?.slug === slug);
+    const classes = useStyles();
     if (!product) {
         return <div>Product Not Found</div>
     }
     return (
         <Layout title={product.name} description={product.description}>
             <div className={classes.section}>
-                <Link href='/' passHref  className='text-xl font-semibold underline' color="primary">
+                <Link href='/' passHref className='text-xl font-semibold underline' color="primary">
                     Back to products
                 </Link>
             </div>
@@ -91,3 +91,17 @@ export default function productScreen() {
         </Layout>
     )
 };
+
+export async function getServerSideProps(context) {
+    const { params } = context;
+    const { slug } = params;
+
+    await db.connect();
+    const product = await Product.findOne({ slug }).lean();
+    await db.disconnect();
+    return {
+        props: {
+            product: db.convertDocToObj(product),
+        },
+    };
+}

@@ -1,14 +1,17 @@
 import Link from 'next/link';
 import Layout from '../components/Layout';
+import Product from '../models/Product';
 import data from '../utils/data';
+import db from '../utils/db';
 
-export default function Home() {
+export default function Home(props) {
+  const { products } = props;
   // console.log(data)
   return (
     <Layout>
       <div className="grid grid-cols-3 gap-4 my-4">
         {
-          data?.products?.map((product) =>
+          products?.map((product) =>
             <div key={product.id} className="flex justify-center">
               <div className="rounded-lg shadow-lg bg-white max-w-sm">
                 <Link href={`/product/${product?.slug}`}>
@@ -39,6 +42,16 @@ export default function Home() {
         }
       </div>
     </Layout >
+  );
+};
 
-  )
+export async function getServerSideProps() {
+  await db.connect();
+  const products = await Product.find({}).lean();
+  await db.disconnect();
+  return {
+    props: {
+      products: products?.map(db.convertDocToObj),
+    },
+  };
 }
