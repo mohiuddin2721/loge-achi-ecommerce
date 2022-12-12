@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import Head from 'next/head';
 import { Container } from '@mui/system';
-import { AppBar, Avatar, Box, Button, createTheme, CssBaseline, IconButton, Menu, MenuItem, ThemeProvider, Toolbar, Tooltip, Typography } from '@mui/material';
+import { AppBar, Avatar, Badge, Box, Button, createTheme, CssBaseline, IconButton, Menu, MenuItem, ThemeProvider, Toolbar, Tooltip, Typography } from '@mui/material';
 import useStyles from '../utils/styles';
 import Link from 'next/link';
 import { Store } from '../utils/Store';
 
 const pages = [
-    { name: "Cart", href: "/cart", id: 1 },
-    { name: "Pricing", href: "/pricing", id: 2 },
-    { name: "Blog", href: "/blog", id: 3 },
+    { name: "Pricing", href: "/pricing", id: 1 },
+    { name: "Blog", href: "/blog", id: 2 },
 ];
 const settings = [
     { name: "Profile", href: "/profile", id: 1 },
@@ -19,7 +18,7 @@ const settings = [
 
 export default function Layout({ title, children, description }) {
     const { state, dispatch } = useContext(Store);
-    const { darkMode } = state;
+    const { darkMode, cart } = state;
 
     const theme = createTheme({
         typography: {
@@ -164,6 +163,14 @@ export default function Layout({ title, children, description }) {
                                     </Button>
                                 ))}
                             </Box>
+
+                            <Link href='/cart' className='mr-2'>
+                                {cart.cartItems.length > 0 ? (
+                                    <Badge badgeContent={cart.cartItems.length}>Cart</Badge>
+                                ) : (
+                                    'Cart'
+                                )}
+                            </Link>
 
                             <Box sx={{ flexGrow: 0 }}>
                                 <Tooltip title="Open settings">
